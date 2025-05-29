@@ -4,147 +4,138 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gestor de Tareas</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
-          font-family: Arial, sans-serif;
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 20px;
-          background-color: {{ background_color }};
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background-image: url("/static/fondo.jpg"); /* Coloca tu imagen aquí */
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 50px;
+      }
+      .container {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        padding: 30px;
+        max-width: 600px;
+        width: 100%;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       }
       h1 {
-          text-align: center;
-          color: #333;
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
       }
       form {
-          display: flex;
-          margin-bottom: 20px;
+        display: flex;
+        margin-bottom: 20px;
       }
       input[type="text"] {
-          flex: 1;
-          padding: 10px;
-          border: 1px solid #ddd;
-          border-radius: 4px 0 0 4px;
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px 0 0 6px;
+        font-size: 16px;
       }
       button {
-          padding: 10px 15px;
-          background-color: #4CAF50;
-          color: white;
-          border: none;
-          border-radius: 0 4px 4px 0;
-          cursor: pointer;
+        padding: 12px 20px;
+        border: none;
+        background-color: #4caf50;
+        color: white;
+        border-radius: 0 6px 6px 0;
+        font-size: 16px;
+        cursor: pointer;
       }
       button:hover {
-          background-color: #45a049;
+        background-color: #45a049;
       }
       ul {
-          list-style-type: none;
-          padding: 0;
+        list-style: none;
+        padding: 0;
       }
       li {
-          display: flex;
-          align-items: center;
-          padding: 10px;
-          border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
       }
       .completed {
-          text-decoration: line-through;
-          color: #888;
+        text-decoration: line-through;
+        color: #999;
       }
-      .actions {
-          margin-left: auto;
+      .actions form {
+        display: inline;
       }
       .actions button {
-          margin-left: 5px;
-          border-radius: 4px;
+        margin-left: 10px;
+        padding: 6px 12px;
+        font-size: 14px;
+        border-radius: 4px;
+        border: none;
+        color: white;
       }
       .complete-btn {
-          background-color: #2196F3;
-      }
-      .complete-btn:hover {
-          background-color: #0b7dda;
+        background-color: #2196f3;
       }
       .delete-btn {
-          background-color: #f44336;
-      }
-      .delete-btn:hover {
-          background-color: #d32f2f;
-      }
-      .task-title {
-          flex: 1;
-          margin-left: 10px;
+        background-color: #f44336;
       }
       .server-info {
-          text-align: center;
-          font-size: 0.8em;
-          color: #333;
-          margin-top: 20px;
-          padding: 10px;
-          background-color: rgba(255, 255, 255, 0.7);
-          border-radius: 5px;
+        margin-top: 20px;
+        font-size: 0.85em;
+        text-align: center;
+        color: #555;
       }
     </style>
   </head>
   <body>
-    <h1>Gestor de Tareas</h1>
+    <div class="container">
+      <h1>Gestor de Tareas</h1>
 
-    <form action="/tasks/add" method="post">
-      <input
-        type="text"
-        name="title"
-        placeholder="Ingrese una nueva tarea"
-        required
-      />
-      <button type="submit">Agregar</button>
-    </form>
+      <form action="/tasks/add" method="post">
+        <input
+          type="text"
+          name="title"
+          placeholder="Ingrese una nueva tarea"
+          required
+        />
+        <button type="submit">Agregar</button>
+      </form>
 
-    <ul>
-      {% if tasks %} {% for task in tasks %}
-      <li>
-        <span class="task-title {% if task.completed %}completed{% endif %}">
-          {{ task.title }}
-        </span>
-        <div class="actions">
-          {% if not task.completed %}
-          <form
-            action="/tasks/{{ loop.index0 }}/complete"
-            method="post"
-            style="display: inline"
+      <ul>
+        {% if tasks %} {% for task in tasks %}
+        <li>
+          <span class="{% if task.completed %}completed{% endif %}"
+            >{{ task.title }}</span
           >
-            <button type="submit" class="complete-btn">Completar</button>
-          </form>
-          {% endif %}
-          <form
-            action="/tasks/{{ loop.index0 }}/delete"
-            method="post"
-            style="display: inline"
-          >
-            <button type="submit" class="delete-btn">Eliminar</button>
-          </form>
-        </div>
-      </li>
-      {% endfor %} {% else %}
-      <li>No hay tareas para mostrar.</li>
-      {% endif %}
-    </ul>
+          <div class="actions">
+            {% if not task.completed %}
+            <form action="/tasks/{{ loop.index0 }}/complete" method="post">
+              <button class="complete-btn">Completar</button>
+            </form>
+            {% endif %}
+            <form action="/tasks/{{ loop.index0 }}/delete" method="post">
+              <button class="delete-btn">Eliminar</button>
+            </form>
+          </div>
+        </li>
+        {% endfor %} {% else %}
+        <li>No hay tareas para mostrar.</li>
+        {% endif %}
+      </ul>
 
-    <div class="server-info">
-      <strong>Servidor atendiendo esta solicitud:</strong> Puerto {{
-      request.host.split(':')[1] }}
+      <div class="server-info">
+        <strong>Servidor:</strong> Puerto {{ request.host.split(':')[1] }}
+      </div>
     </div>
-
-    <script>
-      // JavaScript para mostrar información en tiempo real del servidor
-      function checkServerInfo() {
-        fetch("/info")
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Información del servidor:", data);
-          });
-      }
-
-      // Actualizar información cada 5 segundos
-      setInterval(checkServerInfo, 5000);
-    </script>
   </body>
 </html>
