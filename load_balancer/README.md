@@ -1,31 +1,24 @@
-# 📌 Gestor de Tareas con Flask + Balanceador de Carga
+# 📂 load_balancer
 
-Una aplicación web construida con **Python y Flask** que permite gestionar tareas personales, con balanceo de carga entre múltiples instancias, monitoreo de salud y una interfaz visual moderna.
+Aplicación web construida con **Flask** que expone un gestor de tareas y un balanceador de carga para múltiples instancias.
 
----
+## Características
 
-## ✨ Funcionalidades
+- Interfaz HTML responsive para gestionar tareas.
+- API REST para operaciones CRUD.
+- Balanceador de carga con verificación de salud de los servidores.
+- Registro de eventos en un servicio externo de logs.
 
-- 🎨 Interfaz web responsiva y personalizable
-- 🔁 API REST para tareas (crear, listar, completar, eliminar)
-- ⚖️ Balanceador de carga con health-check automático
-- 📈 Dashboard de estado de servidores (`/status`)
-- 📦 Persistencia local con archivo JSON
-- 📝 Logging de eventos a servicio externo
-
----
-
-## 🧩 Arquitectura
-
-```plaintext
-              ┌────────────────────────┐
-              │ Balanceador (8080)     │
-              │ ─ Proxy + HealthCheck  │
-              └────────┬───────────────┘
-                       │
-        ┌──────────────┴──────────────┐
-        │                             │
-┌──────────────┐           ┌────────────────┐
-│ Flask 5001   │           │ Flask 5002     │
-│ Tareas       │           │ Tareas         │
-└──────────────┘           └────────────────┘
+```
+               ┌────────────────────────┐
+               │ Balanceador (8080)     │
+               │ ─ Proxy + HealthCheck  │
+               └────────┬───────────────┘
+                        │
+         ┌──────────────┴──────────────┐
+         │                             │
+  ┌──────────────┐           ┌────────────────┐
+  │ Flask 5001   │           │ Flask 5002     │
+  │ Gestor       │           │ Gestor         │
+  └──────────────┘           └────────────────┘
+```
