@@ -1,0 +1,12 @@
+2025-06-26 14:59:00,063 - INFO - Verificando servidores al inicio...
+2025-06-26 14:59:04,113 - INFO - Balanceador de carga iniciado en http://localhost:8080
+2025-06-26 14:59:04,114 - INFO - Puedes verificar el estado de los servidores en http://localhost:8080/status
+2025-06-26 14:59:04,142 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.82:8080
+2025-06-26 14:59:04,143 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-26 14:59:16,778 - INFO - 127.0.0.1 - - [26/Jun/2025 14:59:16] "[33mPUT /api/tasks/999/complete HTTP/1.1[0m" 404 -
+2025-06-26 14:59:20,858 - INFO - 127.0.0.1 - - [26/Jun/2025 14:59:20] "[31m[1mPOST /api/tasks HTTP/1.1[0m" 400 -
+2025-06-26 14:59:24,969 - INFO - 127.0.0.1 - - [26/Jun/2025 14:59:24] "[35m[1mPOST /api/tasks/simulate-error HTTP/1.1[0m" 500 -
+2025-06-26 14:59:30,082 - INFO - 127.0.0.1 - - [26/Jun/2025 14:59:30] "GET /errors/stats HTTP/1.1" 200 -
