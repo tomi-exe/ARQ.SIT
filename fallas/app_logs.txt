@@ -1,0 +1,3 @@
+[2025-06-26 15:02:04] WEB: Nueva tarea añadida: verificar notas arq (servidor 127.0.0.1:5002)
+[2025-06-26 15:02:06] WEB: Tarea completada: verificar notas arq (servidor 127.0.0.1:5002)
+[2025-06-26 15:02:28] WEB: Nueva tarea añadida: estudiar fep (servidor 127.0.0.1:5001)
